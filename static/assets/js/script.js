@@ -15,7 +15,6 @@ $(document).ready(function () {
             document.querySelector('#scroll-top').classList.remove('active');
         }
 
-        // scroll spy
         $('section').each(function () {
             let height = $(this).height();
             let offset = $(this).offset().top - 200;
@@ -29,7 +28,6 @@ $(document).ready(function () {
         });
     });
 
-    // smooth scrolling
     $('a[href*="#"]').on('click', function (e) {
         e.preventDefault();
         $('html, body').animate({
@@ -49,22 +47,19 @@ document.addEventListener('visibilitychange', function () {
     }
 });
 
-// <!-- typed js effect starts -->
 var typed = new Typed(".typing-text", {
-    strings: ["Backend Development"]
+    strings: ["Backend Development"],
     loop: true,
     typeSpeed: 50,
     backSpeed: 25,
     backDelay: 500,
 });
-// <!-- typed js effect ends -->
 
 async function fetchData(type = "skills") {
     const urlMap = {
         skills: "/static/assets/skills.json",
         projects: "/static/assets/projects.json",
         experience: "/static/assets/experience.json"
-        // Add more types and paths as needed
     };
 
     const url = urlMap[type] || urlMap["skills"];
@@ -72,7 +67,6 @@ async function fetchData(type = "skills") {
     const data = await response.json();
     return data;
 }
-
 
 function showSkills(skills) {
     let skillsContainer = document.getElementById("skillsContainer");
@@ -93,23 +87,10 @@ fetchData().then(data => {
     showSkills(data);
 });
 
-// <!-- tilt js effect starts -->
 VanillaTilt.init(document.querySelectorAll(".tilt"), {
     max: 15,
 });
-// <!-- tilt js effect ends -->
 
-// pre loader start
-// function loader() {
-//     document.querySelector('.loader-container').classList.add('fade-out');
-// }
-// function fadeOut() {
-//     setInterval(loader, 500);
-// }
-// window.onload = fadeOut;
-// pre loader end
-
-// disable developer mode
 document.getElementById("contact-form").addEventListener("submit", function(event) {
     var emailField = document.getElementById("email");
     var email = emailField.value;
@@ -117,42 +98,28 @@ document.getElementById("contact-form").addEventListener("submit", function(even
 
     var phoneField = document.getElementById("phone");
     var phone = phoneField.value;
-    var phonePattern = /^[0-9]{10}$/; // Validates 10-digit mobile number
+    var phonePattern = /^[0-9]{10}$/;
 
-    // Email validation
     if (!emailPattern.test(email)) {
-      event.preventDefault();
-      alert("Please enter a valid email address.");
+        event.preventDefault();
+        alert("Please enter a valid email address.");
     }
-    
-    // Phone number validation
     if (!phonePattern.test(phone)) {
-      event.preventDefault();
-      alert("Please enter a valid 10-digit mobile number.");
+        event.preventDefault();
+        alert("Please enter a valid 10-digit mobile number.");
     }
-  });
-
-
+});
 
 document.onkeydown = function (e) {
-    if (e.keyCode == 123) {
+    if (e.keyCode == 123 ||
+        (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) ||
+                                     e.keyCode == 'C'.charCodeAt(0) ||
+                                     e.keyCode == 'J'.charCodeAt(0))) ||
+        (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
         return false;
     }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-        return false;
-    }
-}
+};
 
-/* ===== SCROLL REVEAL ANIMATION ===== */
 const srtop = ScrollReveal({
     origin: 'top',
     distance: '80px',
@@ -160,11 +127,9 @@ const srtop = ScrollReveal({
     reset: true
 });
 
-/* SCROLL HOME */
 srtop.reveal('.home .content h3', { delay: 200 });
 srtop.reveal('.home .content p', { delay: 200 });
 srtop.reveal('.home .content .btn', { delay: 200 });
-
 srtop.reveal('.home .image', { delay: 400 });
 srtop.reveal('.home .linkedin', { interval: 600 });
 srtop.reveal('.home .github', { interval: 800 });
@@ -172,28 +137,16 @@ srtop.reveal('.home .twitter', { interval: 1000 });
 srtop.reveal('.home .telegram', { interval: 600 });
 srtop.reveal('.home .instagram', { interval: 600 });
 srtop.reveal('.home .dev', { interval: 600 });
-
-/* SCROLL ABOUT */
 srtop.reveal('.about .content h3', { delay: 200 });
 srtop.reveal('.about .content .tag', { delay: 200 });
 srtop.reveal('.about .content p', { delay: 200 });
 srtop.reveal('.about .content .box-container', { delay: 200 });
 srtop.reveal('.about .content .resumebtn', { delay: 200 });
-
-/* SCROLL SKILLS */
 srtop.reveal('.skills .container', { interval: 200 });
 srtop.reveal('.skills .container .bar', { delay: 400 });
-
-/* SCROLL EDUCATION */
 srtop.reveal('.education .box', { interval: 200 });
-
-/* SCROLL PROJECTS */
 srtop.reveal('.work .box', { interval: 200 });
-
-/* SCROLL EXPERIENCE */
 srtop.reveal('.experience .timeline', { delay: 400 });
 srtop.reveal('.experience .timeline .container', { interval: 400 });
-
-/* SCROLL CONTACT */
 srtop.reveal('.contact .container', { delay: 400 });
 srtop.reveal('.contact .container .form-group', { delay: 400 });
