@@ -51,7 +51,7 @@ document.addEventListener('visibilitychange', function () {
 
 // <!-- typed js effect starts -->
 var typed = new Typed(".typing-text", {
-    strings: ["Python Development", "Backend Development", "Automation Development", "Machine Learning", "Linux Development"],
+    strings: ["Backend Development"]
     loop: true,
     typeSpeed: 50,
     backSpeed: 25,
@@ -60,16 +60,19 @@ var typed = new Typed(".typing-text", {
 // <!-- typed js effect ends -->
 
 async function fetchData(type = "skills") {
-    let response;
+    const urlMap = {
+        skills: "/static/assets/skills.json",
+        projects: "/static/assets/projects.json",
+        experience: "/static/assets/experience.json"
+        // Add more types and paths as needed
+    };
 
-    if (type === "skills") {
-        response = await fetch("/static/assets/skills.json");
-    } else {
-        response = await fetch("/static/assets/skills.json");
-    }
+    const url = urlMap[type] || urlMap["skills"];
+    const response = await fetch(url);
     const data = await response.json();
     return data;
 }
+
 
 function showSkills(skills) {
     let skillsContainer = document.getElementById("skillsContainer");
