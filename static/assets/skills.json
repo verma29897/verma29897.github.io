@@ -31,5 +31,10 @@
   { "name": "Putty", "icon": "https://img.icons8.com/color/48/000000/console.png" },
 
   { "name": "Grafana", "icon": "https://img.icons8.com/color/48/000000/grafana.png" },
-  { "name": "Prometheus", "icon": "https://img.icons8.com/color/48/000000/prometheus.png" }
+  { "name": "Prometheus", "icon": "https://img.icons8.com/color/48/000000/prometheus.png" },
+
+  { "name": "Gin (Go Web Framework)", "icon": "https://img.icons8.com/color/48/000000/go.png" },
+  { "name": "GORM (ORM for Go)", "icon": "https://img.icons8.com/color/48/000000/database.png" },
+  { "name": "Go Fiber", "icon": "https://img.icons8.com/color/48/000000/globe--v1.png" },
+  { "name": "Go Modules", "icon": "https://img.icons8.com/color/48/000000/module.png" }
 ]
