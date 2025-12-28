@@ -48,7 +48,7 @@ document.addEventListener('visibilitychange', function () {
 });
 
 var typed = new Typed(".typing-text", {
-    strings: ["Backend Development"],
+    strings: ["Backend Development","Full Stack Developer"],
     loop: true,
     typeSpeed: 50,
     backSpeed: 25,
