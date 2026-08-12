@@ -1,0 +1,668 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+
+/* ============================================================
+   Resume viewer — standalone styles.
+   Deliberately NOT sharing style.css: that sheet applies
+   text-transform: capitalize to every element, which would
+   mangle resume copy (DPDP, MCP, AES-256, PostgreSQL ...).
+   ============================================================ */
+
+:root {
+  --rz-ink: #1a1a1a;
+  --rz-muted: #5a5a5a;
+  --rz-accent: #1b5e3a;      /* section headings, matches the PDF */
+  --rz-rule: #b9b9b9;
+  --rz-paper: #ffffff;
+  --rz-stage: #eef1f6;
+  --rz-bar: #002057;
+  --rz-bar-2: #001640;
+  --rz-cta: #2506ad;
+  --rz-cta-hover: #1a047e;
+  --rz-zoom: 1;
+  --rz-bar-h: 6.2rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--rz-stage);
+  font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--rz-ink);
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  z-index: 3000;
+  background: #fff;
+  color: var(--rz-bar);
+  padding: 1rem 1.6rem;
+  font-weight: 700;
+  border-radius: 0 0 0.6rem 0;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+/* ============================ toolbar ============================ */
+
+.rz-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: linear-gradient(135deg, var(--rz-bar), var(--rz-bar-2));
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.28);
+}
+
+.rz-toolbar-inner {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.7rem 0.9rem;
+  padding: 0.9rem 1.6rem;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.rz-group {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 0.8rem;
+  padding: 0.3rem 0.45rem;
+}
+
+.rz-group-search {
+  flex: 1 1 10rem;
+  min-width: 8rem;
+  padding-left: 1rem;
+}
+
+.rz-group-actions {
+  margin-left: auto;
+  background: none;
+  border: none;
+  padding: 0;
+  gap: 0.7rem;
+}
+
+/* buttons */
+
+.rz-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: inherit;
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #fff;
+  padding: 0.75rem 1.2rem;
+  border-radius: 0.7rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
+}
+
+.rz-btn-back {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+.rz-btn-back:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+.rz-btn-back:hover i {
+  transform: translateX(-3px);
+}
+.rz-btn-back i {
+  transition: transform 0.2s ease;
+}
+
+.rz-btn-download {
+  background: var(--rz-cta);
+  box-shadow: 0 4px 14px rgba(48, 68, 247, 0.45);
+}
+.rz-btn-download:hover {
+  background: var(--rz-cta-hover);
+  transform: translateY(-1px);
+}
+
+.rz-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.1rem;
+  height: 3.1rem;
+  border: none;
+  border-radius: 0.6rem;
+  background: transparent;
+  color: #dfe7ff;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.rz-icon-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+.rz-icon-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.rz-print {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.rz-zoom-level {
+  min-width: 5.2rem;
+  padding: 0.5rem 0.3rem;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+.rz-zoom-level:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.rz-select {
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.55rem 0.4rem;
+  cursor: pointer;
+  max-width: 13rem;
+}
+.rz-select option {
+  color: #10233f;
+  background: #fff;
+}
+
+/* search */
+
+.rz-search-icon {
+  color: #9fb3d9;
+  font-size: 0.95rem;
+}
+
+.rz-search {
+  flex: 1;
+  min-width: 6rem;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-family: inherit;
+  font-size: 1.05rem;
+  padding: 0.55rem 0.4rem;
+}
+.rz-search::placeholder {
+  color: #9fb3d9;
+}
+.rz-search::-webkit-search-cancel-button {
+  filter: invert(1) opacity(0.6);
+}
+
+.rz-search-count {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #9fb3d9;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.rz-progress {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.12);
+}
+.rz-progress span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: #ffd900;
+}
+
+/* ============================ stage ============================ */
+
+.rz-stage {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2.4rem;
+  padding: 3rem 2rem 6rem;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+/* section rail */
+
+.rz-rail {
+  position: sticky;
+  top: calc(var(--rz-bar-h) + 3rem);
+  flex: 0 0 20rem;
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1.6rem 1.2rem;
+  box-shadow: 0 4px 20px rgba(20, 30, 60, 0.08);
+}
+
+.rz-rail-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rz-muted);
+  padding: 0 0.8rem 0.9rem;
+}
+
+.rz-rail ul {
+  list-style: none;
+}
+
+.rz-rail a {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #33415c;
+  padding: 0.7rem 0.9rem;
+  border-radius: 0.6rem;
+  border-left: 3px solid transparent;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.rz-rail a:hover {
+  background: #f1f4fa;
+}
+.rz-rail a.active {
+  background: #eaf3ee;
+  color: var(--rz-accent);
+  border-left-color: var(--rz-accent);
+}
+
+.rz-rail-download {
+  display: block;
+  margin-top: 1.4rem;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--rz-accent);
+  border: 1px dashed var(--rz-accent);
+  border-radius: 0.6rem;
+  padding: 0.8rem;
+}
+.rz-rail-download:hover {
+  background: #eaf3ee;
+}
+
+/* ============================ paper ============================ */
+
+.rz-paper {
+  background: var(--rz-paper);
+  color: var(--rz-ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: calc(16px * var(--rz-zoom));
+  line-height: 1.5;
+  width: 100%;
+  max-width: calc(88rem * var(--rz-zoom));
+  padding: calc(3.4rem * var(--rz-zoom)) calc(3.8rem * var(--rz-zoom));
+  border-radius: 0.4rem;
+  box-shadow: 0 6px 34px rgba(20, 30, 60, 0.13);
+  transition: max-width 0.18s ease, font-size 0.18s ease;
+}
+
+/* header block */
+
+.rz-head {
+  text-align: center;
+  border-bottom: 2px solid var(--rz-accent);
+  padding-bottom: 1em;
+  margin-bottom: 0.4em;
+}
+
+.rz-head h1 {
+  font-size: 2.15em;
+  font-weight: normal;
+  color: var(--rz-accent);
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+}
+
+.rz-title {
+  font-family: "Nunito", sans-serif;
+  font-size: 0.94em;
+  font-weight: 700;
+  color: #33415c;
+  letter-spacing: 0.03em;
+  margin: 0.45em 0 0.7em;
+}
+
+.rz-contact {
+  font-size: 0.86em;
+  line-height: 2;
+  color: var(--rz-muted);
+}
+.rz-contact a {
+  white-space: nowrap;
+  border-bottom: 1px solid transparent;
+}
+.rz-contact a:hover {
+  color: var(--rz-accent);
+  border-bottom-color: var(--rz-accent);
+}
+.rz-contact i {
+  font-size: 0.9em;
+  margin-right: 0.25em;
+}
+.rz-sep {
+  padding: 0 0.55em;
+  color: #c3c3c3;
+}
+
+/* sections */
+
+.rz-section {
+  scroll-margin-top: calc(var(--rz-bar-h) + 2rem);
+  padding-top: 0.5em;
+}
+
+.rz-section h2 {
+  font-size: 1.12em;
+  font-weight: bold;
+  color: var(--rz-accent);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--rz-rule);
+  padding-bottom: 0.22em;
+  margin: 1em 0 0.65em;
+}
+
+.rz-para {
+  text-align: justify;
+  hyphens: auto;
+}
+
+.rz-entry {
+  margin-bottom: 1.15em;
+}
+.rz-entry:last-child {
+  margin-bottom: 0;
+}
+
+.rz-entry-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+
+.rz-org,
+.rz-proj {
+  font-weight: bold;
+  font-size: 1.06em;
+}
+.rz-role {
+  font-style: italic;
+}
+.rz-dates {
+  font-weight: bold;
+  font-size: 0.95em;
+  white-space: nowrap;
+}
+.rz-loc {
+  font-style: italic;
+  font-size: 0.92em;
+  color: var(--rz-muted);
+}
+.rz-tech {
+  font-weight: bold;
+  font-size: 0.88em;
+  color: var(--rz-muted);
+}
+
+.rz-list {
+  list-style: none;
+  margin: 0.4em 0 0;
+  padding-left: 1.15em;
+}
+.rz-list li {
+  position: relative;
+  padding-left: 0.3em;
+  margin-bottom: 0.32em;
+  text-align: justify;
+}
+.rz-list li::before {
+  content: "–";
+  position: absolute;
+  left: -0.85em;
+  color: var(--rz-accent);
+}
+
+/* skills */
+
+.rz-skills {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.35em 1.2em;
+}
+.rz-skills dt {
+  font-weight: bold;
+  white-space: nowrap;
+}
+.rz-skills dd {
+  margin: 0;
+}
+
+.rz-foot {
+  margin-top: 2em;
+  padding-top: 1em;
+  border-top: 1px solid #e4e4e4;
+  font-size: 0.85em;
+  color: var(--rz-muted);
+  text-align: center;
+}
+.rz-foot a {
+  color: var(--rz-accent);
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* search highlight */
+
+.rz-paper mark {
+  background: #ffe680;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+.rz-paper mark.rz-hit-active {
+  background: #ff9f1a;
+  box-shadow: 0 0 0 2px rgba(255, 159, 26, 0.45);
+}
+
+/* ============================ responsive ============================ */
+
+@media (max-width: 1100px) {
+  .rz-rail {
+    display: none;
+  }
+  .rz-stage {
+    padding: 2.2rem 1.4rem 5rem;
+  }
+}
+
+@media (max-width: 1360px) {
+  .rz-wide {
+    display: none;
+  }
+}
+
+/* Below 860px the toolbar folds into three compact rows:
+   [back | section nav] / [zoom | print + download] / [search] */
+@media (max-width: 860px) {
+  :root {
+    --rz-bar-h: 15rem;
+  }
+  .rz-toolbar-inner {
+    padding: 0.8rem 1.2rem;
+    gap: 0.6rem 0.8rem;
+  }
+  .rz-group-nav {
+    order: 2;
+    flex: 1 1 12rem;
+    min-width: 0;
+  }
+  .rz-group-zoom {
+    order: 3;
+  }
+  .rz-group-actions {
+    order: 4;
+    gap: 0.5rem;
+  }
+  .rz-group-search {
+    order: 5;
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+  .rz-select {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: none;
+  }
+  .rz-paper {
+    padding: calc(2.2rem * var(--rz-zoom)) calc(2rem * var(--rz-zoom));
+  }
+  .rz-entry-row {
+    gap: 0.2em;
+  }
+  .rz-dates,
+  .rz-loc,
+  .rz-tech {
+    flex-basis: 100%;
+  }
+  .rz-skills {
+    grid-template-columns: 1fr;
+    gap: 0.15em;
+  }
+  .rz-skills dt {
+    margin-top: 0.5em;
+  }
+  .rz-para,
+  .rz-list li {
+    text-align: left;
+  }
+}
+
+@media (max-width: 560px) {
+  .rz-btn span {
+    display: none;
+  }
+  .rz-btn {
+    padding: 0.75rem 1rem;
+  }
+  .rz-contact {
+    line-height: 2.2;
+  }
+  .rz-sep {
+    display: none;
+  }
+  .rz-contact a {
+    display: block;
+    white-space: normal;
+  }
+  .rz-head h1 {
+    font-size: 1.75em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    transition: none !important;
+  }
+}
+
+/* ============================ print ============================ */
+
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm 10mm;
+  }
+  body {
+    background: #fff;
+  }
+  .rz-toolbar,
+  .rz-rail,
+  .skip-link,
+  .rz-foot {
+    display: none !important;
+  }
+  .rz-stage {
+    display: block;
+    padding: 0;
+    max-width: none;
+  }
+  .rz-paper {
+    max-width: none;
+    width: 100%;
+    font-size: 10.2pt;
+    line-height: 1.32;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  .rz-section {
+    break-inside: avoid;
+  }
+  .rz-entry {
+    break-inside: avoid;
+  }
+  .rz-paper mark {
+    background: none;
+    box-shadow: none;
+  }
+  .rz-contact i {
+    display: none;
+  }
+}

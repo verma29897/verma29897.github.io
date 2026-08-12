@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, send_from_directory
 import smtplib
 from email.message import EmailMessage
 
@@ -47,6 +47,19 @@ def send_verification_email(name,email,phone,message):
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/resume')
+def resume():
+    return render_template('resume.html')
+
+@app.route('/resume/download')
+def resume_download():
+    return send_from_directory(
+        'static/assets/resume',
+        'Krishna_Kumar_Verma_Resume.pdf',
+        as_attachment=True,
+        download_name='Krishna_Kumar_Verma_Resume.pdf',
+    )
 
 @app.route('/submit-form', methods=['POST'])
 def submit_form():
